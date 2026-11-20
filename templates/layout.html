@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Concession BMW{% endblock %}</title>
+  {% block stylesheets %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='mes_styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
+    {% endblock %}
+</head>
+<body>
+{% include "_nav.html" %}
+<div class="container mt-3">
+  {% for categorie, message in get_flashed_messages(with_categories=true) %}
+    <div class="alert {{ categorie }}">{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
+</body>
+</html>

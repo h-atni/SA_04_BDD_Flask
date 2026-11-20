@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Ventes{% endblock %}
+{% block body %}
+<h2>Ventes</h2>
+<a class="btn btn-outline-success mb-3" href="/vente/add">Ajouter une vente</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th><th>Voiture</th><th>Client</th><th>Employé</th>
+      <th>Prix final</th><th>Remise parrainage</th><th>Paiement</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for v in ventes %}
+    <tr>
+      <td>{{ v.date_vente.strftime('%d/%m/%Y') }}</td>
+      <td>{{ v.nom_modele }} {{ v.libelle_couleur }} ({{ v.voiture_id }})</td>
+      <td>{{ v.nom_client }} {{ v.prenom_client }}</td>
+      <td>{{ v.nom_employe }} {{ v.prenom_employe }}</td>
+      <td>{{ v.prix_final }} €</td>
+      <td>{{ v.remise_parrainage }}</td>
+      <td>{{ v.mode_paiement }}</td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="/vente/edit?id={{ v.id }}">Modifier</a>
+        <a class="btn btn-sm btn-outline-danger" href="/vente/delete?id={{ v.id }}">Supprimer</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

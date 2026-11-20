@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}État des ventes{% endblock %}
+{% block body %}
+<h2>État des ventes</h2>
+
+<form action="/vente/etat" method="get" class="row g-2 mb-4">
+  <div class="col-auto">
+    <label class="form-label">Du</label>
+    <input class="form-control" type="date" name="date_debut" value="{{ date_debut }}" required>
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Au</label>
+    <input class="form-control" type="date" name="date_fin" value="{{ date_fin }}" required>
+  </div>
+  <div class="col-auto align-self-end">
+    <button class="btn btn-primary">Afficher</button>
+    <a class="btn btn-danger" href="/vente/etat">Annuler</a>
+  </div>
+</form>
+
+<h4>
+  Entre le <strong>{{ date_debut }}</strong> et le <strong>{{ date_fin }}</strong>,
+  il y a eu <strong class="text-danger fs-2">{{ total.nb_ventes }}</strong> vente(s)
+  réalisée(s) par <strong class="text-danger fs-2">{{ stats_employes | length }}</strong> employé(s).
+</h4>
+
+<h4 class="mt-4">Ventes par employé</h4>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr><th>Employé</th><th>Poste</th><th>Nombre de ventes</th></tr>
+  </thead>
+  <tbody>
+  {% for s in stats_employes %}
+    <tr>
+      <td>{{ s.nom }} {{ s.prenom }}</td>
+      <td>{{ s.libelle_poste }}</td>
+      <td>{{ s.nb_ventes }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h4 class="mt-4">Ventes par modèle</h4>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr><th>Modèle</th><th>Carrosserie</th><th>Énergie</th><th>Nombre de ventes</th></tr>
+  </thead>
+  <tbody>
+  {% for m in stats_modeles %}
+    <tr>
+      <td>{{ m.nom_modele }}</td>
+      <td>{{ m.carrosserie }}</td>
+      <td>{{ m.energie }}</td>
+      <td>{{ m.nb_ventes }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h4 class="mt-4">Ventes par mode de paiement</h4>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr><th>Mode de paiement</th><th>Nombre de ventes</th></tr>
+  </thead>
+  <tbody>
+  {% for p in stats_paiements %}
+    <tr>
+      <td>{{ p.mode_paiement }}</td>
+      <td>{{ p.nb_ventes }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
