@@ -1,2 +1,9 @@
-<a class="nav-item {% if request.endpoint and request.endpoint.startswith('personnes') %}active{% endif %}"
-   href="{{ url_for('personnes_liste') }}">Personnes (hicham A.)</a>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+        Vente (Hicham A.)
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{{ url_for('show_vente') }}">Afficher les ventes (CRUD)</a></li>
+        <li><a class="dropdown-item" href="{{ url_for('etat_vente') }}">État : Nombre de ventes par employés</a></li>
+    </ul>
+</li>
