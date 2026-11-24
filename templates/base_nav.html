@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Mon site{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-logo" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+    </a>
+
+    <a class="nav-item {% if request.endpoint == 'index' %}active{% endif %}"
+       href="{{ url_for('index') }}">Tableau de bord</a>
+
+    {% include 'nav/_nav_hicham.html' %}
+    {% include 'nav/_nav_benjamin.html' %}
+    {% include 'nav/_nav_arthur.html' %}
+</nav>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
