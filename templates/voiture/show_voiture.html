@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}Voitures{% endblock %}
+{% block body %}
+<h2>Voitures</h2>
+<a class="btn btn-outline-success mb-3" href="/voiture/add">Ajouter une voiture</a>
+<a class="btn btn-outline-primary mb-3" href="/voiture/etat">État du stock</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Modèle</th>
+      <th>Couleur</th>
+      <th>État</th>
+      <th>Kilométrage</th>
+      <th>Prix affiché</th>
+      <th>Mise en circulation</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for v in voitures %}
+    <tr>
+      <td>{{ v.id }}</td>
+      <td>{{ v.nom_modele }}</td>
+      <td>{{ v.libelle_couleur }}</td>
+      <td>{{ v.libelle_etat }}</td>
+      <td>{{ v.kilometrage }} km</td>
+      <td>{{ v.prix_affiche }} €</td>
+      <td>{{ v.date_mise_circulation }}</td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary" href="/voiture/edit?id={{ v.id }}">Modifier</a>
+        <a class="btn btn-sm btn-outline-danger" href="/voiture/delete?id={{ v.id }}">Supprimer</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

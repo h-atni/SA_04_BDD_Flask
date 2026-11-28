@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block title %}Modifier un véhicule{% endblock %}
+{% block body %}
+<h2>Modifier un véhicule</h2>
+<form action="/voiture/edit" method="post">
+  <input type="hidden" name="id_voiture" value="{{ voiture.id }}">
+  <div class="mb-3">
+    <label class="form-label">VIN (17 caractères)</label>
+    <input class="form-control" type="text" value="{{ voiture.id }}" disabled>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Modèle du véhicule</label>
+    <select class="form-select" name="modele_id" required>
+      {% for m in modeles %}
+        <option value="{{ m.id }}" {% if m.id == voiture.modele_id %}selected{% endif %}>
+          {{ m.nom_modele }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">État du véhicule</label>
+    <select class="form-select" name="etat_id" required>
+      {% for e in etats %}
+        <option value="{{ e.id }}" {% if e.id == voiture.etat_id %}selected{% endif %}>
+          {{ e.libelle_etat }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Couleur du véhicule</label>
+    <select class="form-select" name="couleur_id" required>
+      {% for c in couleurs %}
+        <option value="{{ c.id }}" {% if c.id == voiture.couleur_id %}selected{% endif %}>
+          {{ c.libelle_couleur }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Kilométrage</label>
+    <input class="form-control" type="number" name="kilometrage" value="{{ voiture.kilometrage }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Date de mise en circulation</label>
+    <input class="form-control" type="date" name="date_mise_circulation"
+           value="{{ voiture.date_mise_circulation }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Prix affiché (€)</label>
+    <input class="form-control" type="number" step="0.01" name="prix_affiche"
+           value="{{ voiture.prix_affiche }}" required>
+  </div>
+  <button class="btn btn-outline-success">Modifier</button>
+  <a class="btn btn-outline-secondary" href="/voiture/show">Annuler</a>
+</form>
+{% endblock %}

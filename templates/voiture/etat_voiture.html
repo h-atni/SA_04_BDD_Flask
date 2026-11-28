@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block title %}Stockages des voitures{% endblock %}
+{% block body %}
+<h2>Stockages des voitures</h2>
+
+<form action="/voiture/etat" method="get" class="row g-2 mb-4">
+  <div class="col-auto">
+    <label class="form-label">Du</label>
+    <input class="form-control" type="date" name="date_debut" value="{{ date_debut }}" required>
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Au</label>
+    <input class="form-control" type="date" name="date_fin" value="{{ date_fin }}" required>
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Modèle</label>
+    <select class="form-select" name="modele_id">
+      <option value="">-- tous les modèles --</option>
+      {% for m in modeles %}
+        <option value="{{ m.id }}" {% if m.id|string == modele_id|string %}selected{% endif %}>
+          {{ m.nom_modele }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-auto align-self-end">
+    <button class="btn btn-primary">Afficher</button>
+    <a class="btn btn-danger" href="/voiture/etat">Annuler</a>
+  </div>
+</form>
+
+<h4>
+  Voitures mises en circulation entre le <strong>{{ date_debut }}</strong>
+  et le <strong>{{ date_fin }}</strong>
+  {% if modele_id %}
+    {% for m in modeles if m.id == modele_id %}pour le modèle <strong>{{ m.nom_modele }}</strong>{% endfor %}
+  {% else %}pour <strong>tous les modèles</strong>{% endif %}
+</h4>
+
+<h4 class="mt-4">Stockage par modèle</h4>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr><th>Modèle</th><th>Nombre de voitures</th></tr>
+  </thead>
+  <tbody>
+  {% for m in stats_modeles %}
+    <tr>
+      <td>{{ m.nom_modele }}</td>
+      <td>{{ m.nb_voiture }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

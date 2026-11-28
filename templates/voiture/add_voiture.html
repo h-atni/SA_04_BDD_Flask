@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Ajouter un véhicule{% endblock %}
+{% block body %}
+<h2>Ajouter un véhicule</h2>
+<form action="/voiture/add" method="post">
+  <div class="mb-3">
+    <label class="form-label">VIN (17 caractères)</label>
+    <input class="form-control" type="text" name="id_voiture" maxlength="17" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Modèle du véhicule</label>
+    <select class="form-select" name="modele_id" required>
+      <option value="" disabled selected>-- choisir un modèle --</option>
+      {% for m in modeles %}
+        <option value="{{ m.id }}">{{ m.nom_modele }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">État du véhicule</label>
+    <select class="form-select" name="etat_id" required>
+      <option value="" disabled selected>-- choisir un état --</option>
+      {% for e in etats %}
+        <option value="{{ e.id }}">{{ e.libelle_etat }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Couleur du véhicule</label>
+    <select class="form-select" name="couleur_id" required>
+      <option value="" disabled selected>-- choisir une couleur --</option>
+      {% for c in couleurs %}
+        <option value="{{ c.id }}">{{ c.libelle_couleur }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Kilométrage</label>
+    <input class="form-control" type="number" name="kilometrage" value="0">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Date de mise en circulation</label>
+    <input class="form-control" type="date" name="date_mise_circulation" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Prix affiché (€)</label>
+    <input class="form-control" type="number" step="0.01" name="prix_affiche" required>
+  </div>
+  <button class="btn btn-outline-success">Ajouter</button>
+  <a class="btn btn-outline-secondary" href="/voiture/show">Annuler</a>
+</form>
+{% endblock %}
